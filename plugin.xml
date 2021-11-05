@@ -45,10 +45,23 @@
                 <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser"/>
             </feature>
         </config-file>
+		<config-file target="AndroidManifest.xml" parent="/*">
+			<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+			<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    		<uses-permission android:name="android.permission.CAMERA"/>
+            <uses-feature android:name="android.hardware.camera" android:required="true" />
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+		    <provider android:authorities="${applicationId}.provider" android:exported="false" android:grantUriPermissions="true" android:name="nl.xservices.plugins.FileProvider">
+                <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths" />
+		    </provider>
+        </config-file>
 
         <source-file src="src/android/InAppBrowser.java" target-dir="src/org/apache/cordova/inappbrowser" />
         <source-file src="src/android/InAppBrowserDialog.java" target-dir="src/org/apache/cordova/inappbrowser" />
         <source-file src="src/android/InAppChromeClient.java" target-dir="src/org/apache/cordova/inappbrowser" />
+        <source-file src="src/android/FileProvider.java" target-dir="src/org/apache/cordova/inappbrowser"/>
+        <source-file src="src/android/res/xml/provider_paths.xml" target-dir="res/xml"/>
 
         <!-- drawable src/android/resources -->
         <resource-file src="src/android/res/drawable-hdpi/ic_action_next_item.png" target="res/drawable-hdpi/ic_action_next_item.png" />
